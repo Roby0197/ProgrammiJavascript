@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = gestoreLoad;
+ 
+        function gestoreLoad() {
+ 
+          let btn = document.getElementById("btn");
+          let btn1 = document.getElementById("btn1");
+          let btn2 = document.getElementById("btn2");
+ 
+          btn.onclick = Inserisci;
+          btn1.onclick = media;
+          btn2.onclick = mostra;
+         // creiamo un array come variabile globale
+          let listaNum = [];
+         function Inserisci(){
+ 
+         let num = document.getElementById("num").value;
+         listaNum.push(parseInt(num));
+         }
+ 
+         function media(){
+            let media= 0;
+            for (let i = 0; i < listaNum.length; i++) {
+                media += listaNum[i];
+            }
+ 
+            let nodo = document.getElementById("result");
+            nodo.textContent = "La media dei numeri è " + somma;
+         }
+ 
+         function mostra(){
+            remove();
+           let nodo = document.getElementById("result1");
+ 
+           for (let i =0; i < listaNum.length; i++){
+ 
+            let nuovoNodo = document.createElement("li");
+            nuovoNodo.textContent = listaNum[i];
+            nodo.appendChild(nuovoNodo);
+ 
+           }
+ 
+         }
+         function remove(){
+ 
+    var nodo = document.getElementById("result1");
+ 
+    while (nodo.firstChild) {
+ 
+        nodo.removeChild(nodo.firstChild);
+    }
+ 
+}
+ 
+        }
+        </script>
+</head>
+<body>
+  <h1>registro temperature climatiche</h1>  
+  Inserisci un numero <input type = "number" id = "num"><br><br>
+  <button id = "btn">Inserisci</button>
+  <hr>
+  <hr>
+  <button id = "btn2">Mostra temperature</button>
+<ul id = "result1"></ul>
+  <hr>
+  <hr>
+  <button id = "btn1">Calcola media</button>
+  <div id = "result"></div>
+</body>
+</html>

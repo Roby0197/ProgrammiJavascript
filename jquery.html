@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica Accesso</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white;
+            color: black;
+            transition: background-color 0.3s, color 0.3s;
+        }
+ 
+        .card {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+ 
+        button {
+            margin-top: 10px;
+        }
+ 
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+ 
+        .dark-mode .card {
+            background: #333;
+            color: white;
+        }
+ 
+        .dark-mode input {
+            color: black;
+        }
+ 
+        .dark-mode button {
+            color: black;
+        }
+    </style>
+    <script>
+        window.onload = gestoreLoad;
+ 
+        function gestoreLoad() {
+            // Funzionalità di verifica username e password
+            $('#loginButton').click(function() {
+                var username = $('#username').val();
+                var password = $('#password').val();
+ 
+                if (username === "fissi" && password === "1234") {
+                    alert("accesso eseguito");
+                } else {
+                    alert("accesso negato");
+                }
+            });
+ 
+            // Funzionalità per attivare/disattivare la dark mode
+            let darkMode = false;
+            $('#darkModeButton').click(function() {
+                if (darkMode) {
+                    $('body').removeClass('dark-mode');
+                    $('#darkModeButton').text('Attiva Dark Mode');
+                } else {
+                    $('body').addClass('dark-mode');
+                    $('#darkModeButton').text('Disattiva Dark Mode');
+                }
+                darkMode = !darkMode;
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password"><br><br>
+        <button id="loginButton">Login</button>
+ 
+        <p id="nascondi">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid cumque eius molestias repellendus eveniet totam amet est nobis, ipsam nemo qui tenetur aliquam in doloremque delectus voluptatibus porro voluptates voluptas.
+        </p>
+ 
+        <button id="darkModeButton">Attiva Dark Mode</button>
+    </div>
+</body>
+</html>

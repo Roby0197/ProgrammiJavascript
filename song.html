@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+         function remove(){
+    
+    var nodo = document.getElementById("result");
+    
+    while (nodo.firstChild) {
+
+        nodo.removeChild(nodo.firstChild);
+    }
+   
+}
+class song {
+    constructor(titolo, autore, anno, genere, img){
+        this.titolo = titolo;
+        this.autore = autore;
+        this.anno = anno;
+        this.genere = genere;
+        this.img = img;
+    }
+}
+window.onload = gestoreLoad;
+
+function gestoreLoad(){
+
+   
+
+    let listasong = new Array();
+    if (localStorage.length == 0) {
+       let d1 = new song("Bellissima", "annalisa", 2022, "pop", "download (2).jfif");
+       let d2 = new song("Tropicana", "annalisa", 2022, "pop", "download.jfif");
+       let d3 = new song("Movimento lento","annalisa", 2021, "reggaeton", "download (4).jfif");
+       let d4 = new song("Il mondo prima di te","annalisa", 2018, "pop", "download (1).jfif");
+       listasong.push(d1);
+       listasong.push(d2);
+       listasong.push(d3);
+       listasong.push(d4); 
+       salvaDati();}
+       else {
+        listasong = JSON.parse(localStorage.getItem('canzoni'));
+    }
+    
+    let btn = document.getElementById("btn");
+    let btn1 = document.getElementById("btn1");
+    let btn2 = document.getElementById("btn2");
+    btn.onclick = inserisci;
+    btn1.onclick = visualizza;
+    btn2.onclick = Cambia;
+    let nodo = document.getElementById("result");
+
+    function popolaSelect(){
+    let nodoSelect = document.getElementById("titolo1");
+    remove(nodoSelect);
+    for (let i = 0; i < listasong.length; i++) {
+        let nodoOption = document.createElement("option");
+        nodoOption.textContent = listasong[i].titolo;
+        nodoOption.value = listasong[i].titolo;
+        nodoSelect.appendChild(nodoOption);
+    }
+}
+popolaSelect();
+function salvaDati(){
+    
+    localStorage.setItem('canzoni', JSON.stringify(listasong));
+    alert("lista aggiornata");
+
+}
+
+
+
+
+    function inserisci(){
+let titolo = document.getElementById("titolo").value;
+let autore = document.getElementById("autore").value;
+let anno = document.getElementById("anno").value;
+let genere = document.getElementById("genere").value;
+let img = document.getElementById("img").value;
+let d1 = new song(titolo, autore, anno, genere, img);
+listasong.push(d1);
+alert("titolo aggiunto con successo");
+var nodoS = document.getElementById("titolo1");
+
+popolaSelect();
+salvaDati();
+
+    }
+
+    function visualizza(){
+        remove(nodo);
+
+        for (let i = 0; i < listasong.length; i++){
+             
+            let nodoCard = document.createElement("div");
+            nodoCard.className = "card";
+            nodoCard.style.width = "18rem";
+            let nodoImg = document.createElement("img");
+            nodoImg.src = listasong[i].img;
+            nodoImg.className = "card-img-top";
+            nodoCard.appendChild(nodoImg);
+            let nodoCardBody = document.createElement("div");
+            nodoCardBody.className = "card-body";
+            nodoCard.appendChild(nodoCardBody);
+            let nodoTitolo = document.createElement("h5");
+            nodoTitolo.className = "card-title";
+            nodoTitolo.textContent = listasong[i].titolo;
+            nodoCardBody.appendChild(nodoTitolo);
+            let nodoText = document.createElement("p");
+            nodoText.className = "card-text";
+            
+            nodoText.textContent = listasong[i].autore + " " + listasong[i].genere + listasong[i].anno;
+            nodoCardBody.appendChild(nodoText);
+            nodo.appendChild(nodoCard);
+        }
+    }
+            function Cambia(){
+             alert ("ciao");
+        let ok = 0;
+        let titolo = document.getElementById("titolo1").value;
+        let img = document.getElementById("img1").value;
+        for (let i = 0; i < listasong.length; i++){
+            if (listasong[i].titolo == titolo) {
+                listasong[i].img = img;
+                ok = 1;
+            }
+        }
+
+        if (ok == 0){
+            alert("Titolo non trovato");
+        }
+        if (ok > 0){
+            alert("Immagine modificata con successo");
+        }
+
+    }
+}
+
+
+
+
+
+ 
+    
+        
+
+
+
+    </script>
+</head>
+<body>
+ <h1>Nuova canzone</h1> 
+ Inserisci il titolo: <input type = "text" id = "titolo"> <br><br>
+ Inserisci l' autore: <input type = "text" id = "autore">  <br><br>
+ Inserisci l' anno: <input type = "text" id = "anno">  <br><br>
+ Inserisci il genere: <input type = "text" id = "genere"> <br><br>
+ Inserisci l'immagine: <input type = "text" id = "img">  <br><br>
+ <button id = "btn">Inserisci</button>
+ <hr><hr>
+ <button id = "btn1">Visualizza</button>
+ <div id = "result"></div>
+ <br><br>
+ 
+ <hr>
+ Inserisci titolo della canzone da modificare <select id = "titolo1"></select><br><br>
+ Inserisci la nuova immagine <input type = "text" id = "img1"><br><br>
+ <button id = "btn2">Cambia</button>
+
+ <br><br>
+ 
+ <br><br>
+ 
+</body>
+</html>
